@@ -6,6 +6,11 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 
+// Discord Bot Token และ Guild ID ให้ใส่ในตัวแปร
+const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+const GUILD_ID = 'YOUR_GUILD_ID_HERE';
+const ROLE_ID = 'YOUR_ROLE_ID_HERE';
+
 // เชื่อมต่อ Discord Bot
 const client = new Client({
   intents: [
@@ -18,7 +23,8 @@ client.once('ready', () => {
   console.log(`🤖 Bot is online as ${client.user.tag}`);
 });
 
-client.login(process.env.BOT_TOKEN); // ใส่ token ใน .env
+// ใช้ Token ที่ใส่ในตัวแปรโดยตรง
+client.login(BOT_TOKEN); // ใส่ token ตรงนี้
 
 // Middleware
 app.use(bodyParser.json());
@@ -34,7 +40,7 @@ app.post('/vip', async (req, res) => {
   }
 
   try {
-    const guild = await client.guilds.fetch(process.env.GUILD_ID);
+    const guild = await client.guilds.fetch(GUILD_ID); // ใช้ GUILD_ID ตรงนี้
     await guild.members.fetch(); // โหลดสมาชิกทั้งหมด
 
     const member = guild.members.cache.find(
@@ -45,7 +51,7 @@ app.post('/vip', async (req, res) => {
       return res.status(404).json({ error: 'ไม่พบผู้ใช้นี้ในเซิร์ฟเวอร์' });
     }
 
-    await member.roles.add(process.env.ROLE_ID); // แอดยศ
+    await member.roles.add(ROLE_ID); // แอดยศ
     return res.json({ success: true, message: `เพิ่มยศให้ ${discordName} เรียบร้อย` });
   } catch (error) {
     console.error(error);
