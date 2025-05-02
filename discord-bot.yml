@@ -1,0 +1,27 @@
+name: Discord Bot Workflow
+
+on:
+  push:
+    branches:
+      - main  # หรือ branch ที่คุณใช้งาน
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # ระบุเวอร์ชัน Node.js ที่คุณใช้งาน
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the bot
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}  # ใช้ token จาก Secrets
+        run: node bot.js
