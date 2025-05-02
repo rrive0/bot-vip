@@ -7,9 +7,9 @@ const app = express();
 const port = 3000;
 
 // Discord Bot Token และ Guild ID ให้ใส่ในตัวแปร
-const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
-const GUILD_ID = 'YOUR_GUILD_ID_HERE';
-const ROLE_ID = 'YOUR_ROLE_ID_HERE';
+const BOT_TOKEN = 'MTM2NzgzODYyNzc2NTI4OTA1Mw.GudP58.3hNf6vU8E3ypHEKTF4LoD5ei5p4iiGbzIVRxMw';
+const GUILD_ID = '997205757009330216';
+const ROLE_ID = '1266074140738195599';
 
 // เชื่อมต่อ Discord Bot
 const client = new Client({
