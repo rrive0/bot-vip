@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client, GatewayIntentBits } = require('discord.js');
-client.login(process.env.DISCORD_BOT_TOKEN); // ใช้ token จาก GitHub Secrets
+require('dotenv').config(); // เพิ่มการใช้งาน dotenv เพื่อโหลดค่าตัวแปรจาก .env
 
 const app = express();
 const port = 3000;
@@ -11,6 +11,7 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,  // เพิ่ม intent สำหรับ GuildMessages หากต้องการเข้าถึงข้อความ
   ],
 });
 
@@ -18,7 +19,8 @@ client.once('ready', () => {
   console.log(`🤖 Bot is online as ${client.user.tag}`);
 });
 
-client.login(process.env.BOT_TOKEN); // ใส่ token ใน .env
+// ใช้ token จาก GitHub Secrets (ผ่าน environment variables)
+client.login(process.env.DISCORD_BOT_TOKEN) // ใช้ token ที่ตั้งใน .env หรือ GitHub Secrets
 
 // Middleware
 app.use(bodyParser.json());
